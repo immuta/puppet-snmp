@@ -9,7 +9,7 @@ class snmp (
   $snmpd_service_ensure             = $snmp::params::snmpd_service_ensure,
   $snmpd_service_name               = $snmp::params::snmpd_service_name,
 
-) inherits snmp::params {
+) inherits ::snmp::params {
   
   anchor { 'snmp::begin': } ->
   class { '::snmp::install': } ->
