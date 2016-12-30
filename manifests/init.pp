@@ -24,5 +24,6 @@ class snmp (
   validate_string($snmpd_package_name)
   validate_string($snmp_package_name)
   validate_string($snmpd_service_name)
+  validate_string($snmpd_service_enable)
 
 }
