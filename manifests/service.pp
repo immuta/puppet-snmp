@@ -1,4 +1,4 @@
-class snmp::service (
+class snmp::service {
   ##########################
   #
   # services management

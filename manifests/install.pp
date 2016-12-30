@@ -1,4 +1,4 @@
-class snmp::install (
+class snmp::install {
   ##########################
   #
   # paramater validation
