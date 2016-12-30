@@ -6,7 +6,7 @@ class snmp::params {
     $snmp_package_ensure              = 'absent'
     $snmp_package_name                = 'net-snmp-utils'
 
-    $snmpd_service_ensure             = 'runnung'
+    $snmpd_service_ensure             = 'running'
     $snmpd_service_enable             = 'true'
     $snmpd_service_name               = 'snmpd'
 }
