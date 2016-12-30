@@ -67,28 +67,10 @@ class snmp::install (
   # snmpd package management
   package { $::snmp::snmpd_package_name:
     ensure => $::snmp::snmpd_package_ensure,
+    notify => Service[$::snmp::snmpd_service_name],
   }  
   
   package { $::snmp::snmp_package_name:
     ensure => $::snmp::snmp_package_name,
   }
-
-  ##########################
-  #
-  # services management
-  #
-  ##########################
-  
-  # snmpd service
-  service { $::snmp::snmpd_service_name:
-    enable          => $::snmp::snmpd_service_enable,
-    ensure          => $::snmp::snmpd_service_ensure,
-    hasstatus       => true,
-    hasrestart      => true,
-  }
-
-  if ($::snmp::snmp_package_ensure in ['present', 'latest']) {
-    Package[$::snmp::snmpd_package_name] ~> Service[$::snmp::snmpd_service_name]
-  }
-
 }

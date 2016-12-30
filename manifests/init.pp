@@ -13,6 +13,15 @@ class snmp (
   
   anchor { 'snmp::begin': } ->
   class { '::snmp::install': } ->
+  class { '::snmp::service': } ->
   anchor { 'snmp::end': }
+
+  validate_boolean($snmpd_package_ensure)
+  validate_string($snmpd_package_name)
+  validate_string($snmpd_package_latest)
+  validate_string($snmpd_service_name)
+  validate_boolean($snmp_package_ensure)
+  validate_string($snmp_package_name)
+  validate_string($snmp_package_latest)
 
 }
