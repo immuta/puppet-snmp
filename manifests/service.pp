@@ -6,13 +6,13 @@ class snmp::service {
   #
   ##########################
   # validate input for snmpd service
-  if ! ($::snmp::snmpd_service_ensure in ['running', 'stopped']) {
-    fail('snmpd_package_ensure parameter must be either running, or stopped')
-  }
+  # if ! ($::snmp::snmpd_service_ensure in ['running', 'stopped']) {
+  #   fail('snmpd_package_ensure parameter must be either running, or stopped')
+  # }
 
-  if ! ($::snmp::snmpd_service_enable in ['true', 'false', 'manual', 'mask']) {
-    fail('snmpd_package_ensure parameter must be either true, false, manual, or mask')
-  }
+  # if ! ($::snmp::snmpd_service_enable in ['true', 'false', 'manual', 'mask']) {
+  #   fail('snmpd_package_ensure parameter must be either true, false, manual, or mask')
+  # }
 
   ##########################
   #
