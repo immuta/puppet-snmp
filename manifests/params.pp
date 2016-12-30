@@ -1,3 +1,4 @@
+# SNMP Class to set default options
 class snmp::params {
     $snmpd_package_ensure             = 'present'
     $snmpd_package_name               = 'net-snmp'

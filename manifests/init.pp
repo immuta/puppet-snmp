@@ -1,3 +1,4 @@
+# SNMP Class to install, configure snmpd, snmptrapd, snmp utilities
 class snmp (
 
   $snmpd_package_ensure             = $snmp::params::snmpd_package_ensure,
@@ -10,7 +11,7 @@ class snmp (
   $snmpd_service_name               = $snmp::params::snmpd_service_name,
 
 ) inherits ::snmp::params {
-  
+
   anchor { 'snmp::begin': } ->
   class { '::snmp::install': } ->
   class { '::snmp::service': } ->
