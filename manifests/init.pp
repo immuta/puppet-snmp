@@ -11,11 +11,14 @@ class snmp (
   $snmpd_service_enable             = $::snmp::params::snmpd_service_enable,
   $snmpd_service_name               = $::snmp::params::snmpd_service_name,
 
+  $snmpd_config_file                = $::snmpd::params::snmpd_config_file,
+
 ) inherits ::snmp::params {
 
   anchor { 'snmp::begin': } ->
   class { '::snmp::install': } ->
   class { '::snmp::service': } ->
+  class { '::snmp::config': } ->
   anchor { 'snmp::end': }
 
   validate_string($snmpd_package_ensure)
