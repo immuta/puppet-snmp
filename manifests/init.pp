@@ -14,8 +14,8 @@ class snmp (
 ) inherits ::snmp::params {
 
   anchor { 'snmp::begin': } ->
-  class { '::snmp::install': } ->
-  class { '::snmp::service': } ->
+  class { 'snmp::install': } ->
+  class { 'snmp::service': } ->
   anchor { 'snmp::end': }
 
   validate_string($snmpd_package_ensure)
