@@ -7,14 +7,14 @@ class snmp::install {
   ##########################
 
   # validate input for snmpd
-  # if ! ($snmp::snmpd_package_ensure in ['present', 'absent', 'latest']) {
-  #   fail('snmpd_package_ensure parameter must be either present, absent, or latest')
-  # }
+  if ! ($snmp::snmpd_package_ensure in ['present', 'absent', 'latest']) {
+    fail('snmpd_package_ensure parameter must be either present, absent, or latest')
+  }
 
   # validate input for snmp
-  # if ! ($snmp::snmp_package_ensure in ['present', 'absent', 'latest']) {
-  #   fail('snmp_package_ensure parameter must be either present, absent, or latest')
-  # }
+  if ! ($snmp::snmp_package_ensure in ['present', 'absent', 'latest']) {
+    fail('snmp_package_ensure parameter must be either present, absent, or latest')
+  }
 
   ##########################
   #
