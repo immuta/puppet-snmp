@@ -11,7 +11,7 @@ class snmp (
   $snmpd_service_enable             = $::snmp::params::snmpd_service_enable,
   $snmpd_service_name               = $::snmp::params::snmpd_service_name,
 
-  $snmpd_config_file                = $::snmpd::params::snmpd_config_file,
+  $snmpd_config_file                = $::snmp::params::snmpd_config_file,
 
 ) inherits ::snmp::params {
 
