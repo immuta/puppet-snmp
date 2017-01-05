@@ -23,12 +23,12 @@ class snmp::install {
   ##########################
 
   # snmpd package management
-  package { $snmp::snmpd_package_name:
-    ensure => $snmp::snmpd_package_ensure,
-    notify => Service[$snmp::snmpd_service_name],
+  package { $::snmp::snmpd_package_name:
+    ensure => $::snmp::snmpd_package_ensure,
+    notify => Service[$::snmp::snmpd_service_name],
   }
 
-  package { $snmp::snmp_package_name:
-    ensure => $snmp::snmp_package_name,
+  package { $::snmp::snmp_package_name:
+    ensure => $::snmp::snmp_package_name,
   }
 }
