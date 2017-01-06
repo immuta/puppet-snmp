@@ -12,7 +12,8 @@ class snmp (
   $snmpd_service_name               = $::snmp::params::snmpd_service_name,
 
   $snmpd_config_file                = $::snmp::params::snmpd_config_file,
-  $snmpd_config_v3user              = $::snmp::params::snmpd_config_v3user,
+
+  $snmpd_config_agentaddress        = $::snmp::params::snmpd_config_agentaddress,
 
 ) inherits ::snmp::params {
 
@@ -29,5 +30,7 @@ class snmp (
   validate_string($snmp_package_name)
   validate_string($snmpd_service_name)
   validate_string($snmpd_service_enable)
+  validate_string($snmpd_config_file)
+  validate_array($snmpd_config_agentaddress)
 
 }

@@ -11,5 +11,6 @@ class snmp::params {
   $snmpd_service_name               = 'snmpd'
 
   $snmpd_config_file                = '/etc/snmp/snmpd.conf'
-  $snmpd_config_v3user              = '/var/lib/net-snmp/snmpd.conf'
+
+  $snmpd_config_agentaddress        = [ 'udp:127.0.0.1:161' ]
 }
