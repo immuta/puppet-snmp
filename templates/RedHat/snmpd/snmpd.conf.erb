@@ -7,7 +7,7 @@
 #   SNMP Agent Config
 #
 ##################################################
-agentaddress <%= scope['::snmp::snmpd_config_agentaddress'] %>
+agentaddress <%= scope['::snmp::snmpd_config_agentaddress'].join(',') %>
 
 ##################################################
 #
