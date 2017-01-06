@@ -57,21 +57,21 @@ define snmp::user (
     line    => "${user_type} ${user_name} ${security_level}",
     match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
     replace => true,
-    before  => exec['start_snmpd'],
-    require => exec['stop_snmpd'],
+    before  => Exec['start_snmpd'],
+    require => Exec['stop_snmpd'],
   }
 
   file_line { 'usm_snmpd_file':
     path    => '/var/lib/net-snmp/snmpd.conf',
     line    => $createUser,
-    before  => exec['start_snmpd'],
-    require => exec['stop_snmpd'],
+    before  => Exec['start_snmpd'],
+    require => Exec['stop_snmpd'],
   }
 
   exec { 'start_snmpd':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
     command => "service snmpd start",
     user    => 'root',
-    require => exec['stop_snmpd'],
+    require => Exec['stop_snmpd'],
   }
 }
