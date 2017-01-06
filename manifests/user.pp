@@ -57,7 +57,7 @@ define snmp::user (
   file_line { 'tmp_file':
     path    => '/tmp/snmpd.conf',
     line    => "${user_type} ${user_name} ${security_level}",
-    match   => "^\(ro\|rw\)user\s*\(\(usm\|tsm\|ksm\)\s*\)*${user_name}.*$",
+    match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*\${user_name}.*$",
     replace => true,
   }
 
