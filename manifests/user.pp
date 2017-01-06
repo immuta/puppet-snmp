@@ -1,5 +1,5 @@
 # SNMP class to configure and add V3 user for snmpd, snmptrapd utilities
-class snmp::user (
+define snmp::user (
   $daemon_type    = 'snmpd',
   $user_name      = undef,
   $user_type      = 'readonly',
