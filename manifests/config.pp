@@ -16,7 +16,6 @@ class snmp::config {
     group          => 'root',
     mode           => '0700',
     ensure_newline => true,
-    notify         => Class['::snmp::service'],
   }
 
   concat::fragment { 'snmp_v3user':
