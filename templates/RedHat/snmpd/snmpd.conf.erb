@@ -7,17 +7,17 @@
 #   SNMP Agent Config
 #
 ##################################################
-agentaddress <%= @snmpd_config_agentaddress %>
+agentaddress <%= scope['::snmp::snmpd_config_agentaddress'] %>
 
 ##################################################
 #
 #   System Info
 #
 ##################################################
-sysLocation <%= @snmpd_config_sys_location %>
-sysContact <%= @snmpd_config_sys_contact %>
-sysServices <%= @snmpd_config_sys_services %>
-sysName <%= @snmpd_config_sys_name %>
+sysLocation <%= scope['::snmp::snmpd_config_sys_location'] %>
+sysContact <%= scope['::snmp::snmpd_config_sys_contact'] %>
+sysServices <%= scope['::snmp::snmpd_config_sys_services'] %>
+sysName <%= scope['::snmp::snmpd_config_sys_name'] %>
 
 ##################################################
 #
