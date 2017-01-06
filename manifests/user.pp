@@ -22,12 +22,14 @@ define snmp::user (
 
   case $security_level {
     'noAuthNoPriv': {
-
+      $createUser = "createUser ${user_name}"
     }
     'authNoPriv': {
       if ! ($auth_hash_type in ['MD5', 'SHA']) {
         fail('auth_hash_type parameter must be either MD5, or SHA')
       }
+
+      $createUser = "createUser ${user_name} ${auth_hash_type} \\\"${auth_password}\\\""
     }
     'authPriv': {
       if ! ($auth_hash_type in ['MD5', 'SHA']) {
@@ -37,28 +39,40 @@ define snmp::user (
       if ! ($priv_enc_type in ['AES', 'DES']) {
         fail('priv_enc_type parameter must be either AES, or DES')
       }
+      $createUser = "createUser ${user_name} ${auth_hash_type} \\\"${auth_password}\\\" ${priv_enc_type} \\\"${priv_password}\\\""
     }
     default: {
       fail('security_level paramater must be either noAuthNoPriv, authNoPriv, or authPriv')
     }
   }
 
-  exec { "user_${user_name}":
+  exec { 'stop_snmpd':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    # TODO: Add "rwuser ${title}" (or rouser) to /etc/snmp/${daemon}.conf
-    # command => "service ${service_name} stop ; sleep 5 ; echo \"${cmd}\" >>${snmp::params::var_net_snmp}/${daemon}.conf && touch ${snmp::params::var_net_snmp}/${title}-${daemon}",
-    command => "echo \"${security_level}\" >> /tmp/security_level",
-    # creates => "${snmp::params::var_net_snmp}/${title}-${daemon}",
+    command => "service ${::snmp::snmpd_service_name} stop; sleep 5",
     user    => 'root',
-    #require => [ Package['snmpd'], File['var-net-snmp'], ],
-    #before  => $service_before,
+    before  => file_line['usm_snmpd_file'],
   }
 
-  file_line { 'tmp_file':
-    path    => '/tmp/snmpd.conf',
+  file_line { 'snmpd_conf_file':
+    path    => '/etc/snmp/snmpd.conf',
     line    => "${user_type} ${user_name} ${security_level}",
     match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
     replace => true,
+    before  => exec['start_snmpd'],
+    require => exec['stop_snmpd'],
   }
 
+  file_line { 'usm_snmpd_file':
+    path    => '/var/lib/net-snmp/snmpd.conf',
+    line    => $createUser,
+    before  => exec['start_snmpd'],
+    require => exec['stop_snmpd'],
+  }
+
+  exec { 'start_snmpd':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+    command => "service ${::snmp::snmpd_service_name} start",
+    user    => 'root',
+    require => exec['stop_snmpd'],
+  }
 }
