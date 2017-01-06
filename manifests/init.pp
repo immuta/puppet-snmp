@@ -14,6 +14,10 @@ class snmp (
   $snmpd_config_file                = $::snmp::params::snmpd_config_file,
 
   $snmpd_config_agentaddress        = $::snmp::params::snmpd_config_agentaddress,
+  $snmpd_config_sys_location        = $::snmp::params::snmpd_config_sys_location,
+  $snmpd_config_sys_contact         = $::snmp::params::snmpd_config_sys_contact,
+  $snmpd_config_sys_services        = $::snmp::params::snmpd_config_sys_services,
+  $snmpd_config_sys_name            = $::snmp::params::snmpd_config_sys_name,
 
 ) inherits ::snmp::params {
 
