@@ -10,19 +10,10 @@ class snmp::config {
     content => template('snmp/RedHat/snmpd/snmpd.conf.erb'),
   }
 
-  concat { $::snmp::snmpd_config_v3user:
-    ensure         => 'present',
-    owner          => 'root',
-    group          => 'root',
-    mode           => '0700',
-    ensure_newline => true,
-    replace        => false,
-  }
-
-  concat::fragment { 'snmp_v3user':
-    target  => $::snmp::snmpd_config_v3user,
-    content => "${::snmp::snmpd_config_v3user}\n",
-    order   => '01',
+  file_line { 'snmp_v3user':
+    path  => $::snmp::snmpd_config_v3user,
+    line  => "createUser bob",
+    match => "^createUser",
   }
 
 }
