@@ -12,11 +12,11 @@ class snmp::user (
 
   validate_string($user_name)
 
-  if ! ($::snmp::user::daemon_type in ['snmpd', 'snmptrapd']) {
+  if ! ($daemon_type in ['snmpd', 'snmptrapd']) {
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
   }
 
-  if ! ($::snmp::user::user_type in ['readonly', 'readwrite']) {
+  if ! ($user_type in ['readonly', 'readwrite']) {
     fail('user_Type paramater must be either readonly, or readwrite')
   }
 
@@ -25,16 +25,16 @@ class snmp::user (
 
     }
     'authNoPriv': {
-      if ! ($::snmp::user::auth_hash_type in ['MD5', 'SHA']) {
+      if ! ($auth_hash_type in ['MD5', 'SHA']) {
         fail('auth_hash_type parameter must be either MD5, or SHA')
       }
     }
     'authPriv': {
-      if ! ($::snmp::user::auth_hash_type in ['MD5', 'SHA']) {
+      if ! ($auth_hash_type in ['MD5', 'SHA']) {
         fail('auth_hash_type parameter must be either MD5, or SHA')
       }
 
-      if ! ($::snmp::user::priv_enc_type in ['AES', 'DES']) {
+      if ! ($priv_enc_type in ['AES', 'DES']) {
         fail('priv_enc_type parameter must be either AES, or DES')
       }
     }
@@ -43,12 +43,15 @@ class snmp::user (
     }
   }
 
-  if ! ($::snmp::user::auth_hash_type in ['MD5', 'SHA']) {
-    fail('auth_hash_type parameter must be either MD5, or SHA')
-  }
-
-  if ! ($::snmp::user::priv_enc_type in ['AES', 'DES']) {
-    fail('priv_enc_type parameter must be either AES, or DES')
+  exec { "user_${user_name}"}:
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+    # TODO: Add "rwuser ${title}" (or rouser) to /etc/snmp/${daemon}.conf
+    # command => "service ${service_name} stop ; sleep 5 ; echo \"${cmd}\" >>${snmp::params::var_net_snmp}/${daemon}.conf && touch ${snmp::params::var_net_snmp}/${title}-${daemon}",
+    command => "echo \"${security_level}\" >> /tmp/security_level",
+    # creates => "${snmp::params::var_net_snmp}/${title}-${daemon}",
+    user    => 'root',
+    #require => [ Package['snmpd'], File['var-net-snmp'], ],
+    #before  => $service_before,
   }
 
 }
