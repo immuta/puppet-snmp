@@ -16,8 +16,8 @@ define snmp::user (
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
   }
 
-  if ! ($user_type in ['readonly', 'readwrite']) {
-    fail('user_Type paramater must be either readonly, or readwrite')
+  if ! ($user_type in ['rouser', 'rwuser']) {
+    fail('user_Type paramater must be either rouser, or rwuser')
   }
 
   case $security_level {
