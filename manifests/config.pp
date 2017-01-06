@@ -9,11 +9,4 @@ class snmp::config {
     path    => $::snmp::snmpd_config_file,
     content => template('snmp/RedHat/snmpd/snmpd.conf.erb'),
   }
-
-  file_line { 'snmp_v3user':
-    path  => $::snmp::snmpd_config_v3user,
-    line  => "createUser bob",
-    match => "^createUser",
-  }
-
 }
