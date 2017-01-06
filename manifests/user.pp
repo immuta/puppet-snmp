@@ -2,7 +2,7 @@
 define snmp::user (
   $daemon_type    = 'snmpd',
   $user_name      = undef,
-  $user_type      = 'readonly',
+  $user_type      = 'rouser',
   $security_level = undef,
   $auth_hash_type = 'SHA',
   $auth_password  = undef,
@@ -52,6 +52,13 @@ define snmp::user (
     user    => 'root',
     #require => [ Package['snmpd'], File['var-net-snmp'], ],
     #before  => $service_before,
+  }
+
+  file_line { 'tmp_file':
+    path    => '/tmp/snmpd.conf',
+    line    => "${user_type} ${user_name} ${security_level}",
+    match   => "^\(ro\|rw\)user\s*\(\(usm\|tsm\|ksm\)\s*\)*${user_name}.*$",
+    replace => true,
   }
 
 }
