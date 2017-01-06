@@ -16,7 +16,7 @@ class snmp::config {
     group          => 'root',
     mode           => '0700',
     ensure_newline => true,
-    content        => "$::snmp::snmpd_config_v3user\n",
+    content        => "${::snmp::snmpd_config_v3user}\n",
     notify         => Class['::snmp::service'],
   }
 
