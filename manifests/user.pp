@@ -22,14 +22,14 @@ define snmp::user (
 
   case $security_level {
     'noAuthNoPriv': {
-      $createUser = "createUser ${user_name}"
+      $createuser = "createUser ${user_name}"
     }
     'authNoPriv': {
       if ! ($auth_hash_type in ['MD5', 'SHA']) {
         fail('auth_hash_type parameter must be either MD5, or SHA')
       }
 
-      $createUser = "createUser ${user_name} ${auth_hash_type} \\\"${auth_password}\\\""
+      $createuser = "createUser ${user_name} ${auth_hash_type} \"${auth_password}\""
     }
     'authPriv': {
       if ! ($auth_hash_type in ['MD5', 'SHA']) {
@@ -39,7 +39,7 @@ define snmp::user (
       if ! ($priv_enc_type in ['AES', 'DES']) {
         fail('priv_enc_type parameter must be either AES, or DES')
       }
-      $createUser = "createUser ${user_name} ${auth_hash_type} \\\"${auth_password}\\\" ${priv_enc_type} \\\"${priv_password}\\\""
+      $createuser = "createUser ${user_name} ${auth_hash_type} \"${auth_password}\" ${priv_enc_type} \"${priv_password}\""
     }
     default: {
       fail('security_level paramater must be either noAuthNoPriv, authNoPriv, or authPriv')
@@ -63,7 +63,7 @@ define snmp::user (
 
   file_line { 'usm_snmpd_file':
     path    => '/var/lib/net-snmp/snmpd.conf',
-    line    => $createUser,
+    line    => $createuser,
     before  => Exec['start_snmpd'],
     require => Exec['stop_snmpd'],
   }
