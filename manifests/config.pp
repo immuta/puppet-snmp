@@ -10,4 +10,14 @@ class snmp::config {
     content => template('snmp/RedHat/snmpd/snmpd.conf.erb'),
   }
 
+  concat { $::snmp::snmpd_config_v3user:
+    ensure         => 'present',
+    owner          => 'root',
+    group          => 'root',
+    mode           => '0700',
+    ensure_newline => true,
+    content        => "$::snmp::snmpd_config_v3user\n",
+    notify         => Class['::snmp::service'],
+  }
+
 }
