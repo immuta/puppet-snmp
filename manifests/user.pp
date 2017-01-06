@@ -50,10 +50,9 @@ define snmp::user (
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
     command => "service ${::snmp::snmpd_service_name} stop; sleep 5",
     user    => 'root',
-    before  => file_line['usm_snmpd_file'],
   }
 
-  file_line { 'snmpd_conf_file':
+  file_line { $::snmp::snmpd_config_file:
     path    => '/etc/snmp/snmpd.conf',
     line    => "${user_type} ${user_name} ${security_level}",
     match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
