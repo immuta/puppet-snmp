@@ -16,8 +16,13 @@ class snmp::config {
     group          => 'root',
     mode           => '0700',
     ensure_newline => true,
-    content        => "${::snmp::snmpd_config_v3user}\n",
     notify         => Class['::snmp::service'],
+  }
+
+  concat::fragment { 'snmp_v3user':
+    target  => $::snmp::snmpd_config_v3user,
+    content => "${::snmp::snmpd_config_v3user}\n",
+    order   => '01',
   }
 
 }
