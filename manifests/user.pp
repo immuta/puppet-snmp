@@ -48,6 +48,17 @@ define snmp::user (
     }
   }
 
+  file { '/etc/snmp/snmpd.conf.d/users.conf':
+    path    => '/etc/snmp/snmpd.conf.d/users.conf',
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
+    notify  => Service['$::snmp::snmpd_service_name'],
+    before  => Exec['stop_snmpd'],
+  }
+
   exec { 'stop_snmpd':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
     command => "service ${snmpd_service_name} stop; sleep 5",
@@ -59,7 +70,7 @@ define snmp::user (
     owner  => root,
     group  => root,
     mode   => '0755',
-  }  
+  }
 
   file { '/etc/snmp/snmpd.conf.d/users.conf':
     path    => '/etc/snmp/snmpd.conf.d/users.conf',
@@ -68,6 +79,7 @@ define snmp::user (
     owner   => 'root',
     group   => 'root',
     content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
+    notify  => Service['$::snmp::snmpd_service_name']
   }
 
   file_line { 'usm_snmpd_file':
