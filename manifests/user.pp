@@ -54,14 +54,12 @@ define snmp::user (
     user    => 'root',
   }
 
-#  file_line { $::snmp::snmpd_config_file:
-#    path    => '/etc/snmp/snmpd.conf',
-#    line    => "${user_type} ${user_name} ${security_level}",
-#    match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
-#    replace => true,
-#    before  => Exec['start_snmpd'],
-#    require => Exec['stop_snmpd'],
-#  }
+  file { '/etc/snmp/snmpd.conf.d':
+    ensure => 'directory',
+    owner  => root,
+    group  => root,
+    mode   => '0755',
+  }  
 
   file { '/etc/snmp/snmpd.conf.d/users.conf':
     path    => '/etc/snmp/snmpd.conf.d/users.conf',
@@ -69,7 +67,7 @@ define snmp::user (
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => template('snmp/RedHat/snmpd/snmpd.conf.d/uses.conf.erb'),
+    content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
   }
 
   file_line { 'usm_snmpd_file':
