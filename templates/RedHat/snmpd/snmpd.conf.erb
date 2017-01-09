@@ -52,5 +52,5 @@ sysName <%= scope['::snmp::snmpd_config_sys_name'] %>
 #
 ##################################################
 <% if scope['::snmp::user::user_type'] and scope['::snmp::user::user_name'] and scope['::snmp::user::security_level'] -%>
-<%= scope['::snmp::user::user_type'] scope['::snmp::user::user_name'] scope['::snmp::user::security_level'] %>
+<%= scope['::snmp::user::user_type'] %> <%= scope['::snmp::user::user_name'] %> <%= scope['::snmp::user::security_level'] %>
 <% end -%>
