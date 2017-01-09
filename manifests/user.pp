@@ -72,16 +72,6 @@ define snmp::user (
     mode   => '0755',
   }
 
-  file { '/etc/snmp/snmpd.conf.d/users.conf':
-    ensure  => present,
-    path    => '/etc/snmp/snmpd.conf.d/users.conf',
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
-    notify  => Service['$::snmp::snmpd_service_name']
-  }
-
   file_line { 'usm_snmpd_file':
     path    => '/var/lib/net-snmp/snmpd.conf',
     line    => $createuser,
