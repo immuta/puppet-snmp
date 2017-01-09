@@ -10,4 +10,18 @@ class snmp::config {
     content => template('snmp/RedHat/snmpd/snmpd.conf.erb'),
     notify  => Service[$::snmp::snmpd_service_name]
   }
+
+  file { '/etc/snmp/snmpd.conf.d':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file { '/etc/snmp/current_users':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
+  }
 }
