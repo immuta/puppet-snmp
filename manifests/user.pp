@@ -63,6 +63,15 @@ define snmp::user (
 #    require => Exec['stop_snmpd'],
 #  }
 
+  file { '/etc/snmp/snmpd.conf.d/users.conf':
+    path    => '/etc/snmp/snmpd.conf.d/users.conf',
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => template('snmp/RedHat/snmpd/snmpd.conf.d/uses.conf.erb'),
+  }
+
   file_line { 'usm_snmpd_file':
     path    => '/var/lib/net-snmp/snmpd.conf',
     line    => $createuser,
