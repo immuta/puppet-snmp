@@ -45,3 +45,12 @@ sysName <%= scope['::snmp::snmpd_config_sys_name'] %>
 #   Logging
 #
 ##################################################
+
+##################################################
+#
+#
+#
+##################################################
+<% if scope['::snmp::user:user_type'] and scope['::snmp::user:user_name'] and scope['::snmp::user:security_level'] -%>
+${user_type} ${user_name} ${security_level}
+<% end -%>

@@ -54,14 +54,14 @@ define snmp::user (
     user    => 'root',
   }
 
-  file_line { $::snmp::snmpd_config_file:
-    path    => '/etc/snmp/snmpd.conf',
-    line    => "${user_type} ${user_name} ${security_level}",
-    match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
-    replace => true,
-    before  => Exec['start_snmpd'],
-    require => Exec['stop_snmpd'],
-  }
+#  file_line { $::snmp::snmpd_config_file:
+#    path    => '/etc/snmp/snmpd.conf',
+#    line    => "${user_type} ${user_name} ${security_level}",
+#    match   => "^(ro|rw)user\s*((usm|tsm|ksm)\s*)*${user_name}.*\$",
+#    replace => true,
+#    before  => Exec['start_snmpd'],
+#    require => Exec['stop_snmpd'],
+#  }
 
   file_line { 'usm_snmpd_file':
     path    => '/var/lib/net-snmp/snmpd.conf',
