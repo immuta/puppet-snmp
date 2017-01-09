@@ -8,6 +8,8 @@ define snmp::user (
   $auth_password  = undef,
   $priv_enc_type  = 'AES',
   $priv_password  = undef,
+
+  $snmpd_service_name = $::snmp::snmpd_service_name,
 ) {
 
   validate_string($user_name)
@@ -48,7 +50,7 @@ define snmp::user (
 
   exec { 'stop_snmpd':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    command => "service snmpd stop; sleep 5",
+    command => "service ${snmpd_service_name} stop; sleep 5",
     user    => 'root',
   }
 
@@ -70,7 +72,7 @@ define snmp::user (
 
   exec { 'start_snmpd':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    command => "service snmpd start",
+    command => "service ${snmpd_service_name} start",
     user    => 'root',
     require => Exec['stop_snmpd'],
   }
