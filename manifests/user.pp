@@ -49,8 +49,8 @@ define snmp::user (
   }
 
   file { '/etc/snmp/snmpd.conf.d/users.conf':
-    path    => '/etc/snmp/snmpd.conf.d/users.conf',
     ensure  => present,
+    path    => '/etc/snmp/snmpd.conf.d/users.conf',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -73,8 +73,8 @@ define snmp::user (
   }
 
   file { '/etc/snmp/snmpd.conf.d/users.conf':
-    path    => '/etc/snmp/snmpd.conf.d/users.conf',
     ensure  => present,
+    path    => '/etc/snmp/snmpd.conf.d/users.conf',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
