@@ -51,4 +51,4 @@ sysName <%= scope['::snmp::snmpd_config_sys_name'] %>
 #   SNMPv3 Users
 #
 ##################################################
-<%= scope['::snmp::user::user_type'] %> <%= scope['::snmp::user::user_name'] %> <%= scope['::snmp::user::security_level'] %>
+includeDir /etc/snmp/snmpd.conf.d
