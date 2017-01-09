@@ -55,7 +55,7 @@ define snmp::user (
     owner   => 'root',
     group   => 'root',
     content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
-    notify  => Service['$::snmp::snmpd_service_name'],
+    notify  => Service[$::snmp::snmpd_service_name],
     before  => Exec['stop_snmpd'],
   }
 
