@@ -48,9 +48,9 @@ sysName <%= scope['::snmp::snmpd_config_sys_name'] %>
 
 ##################################################
 #
-#
+#   SNMPv3 Users
 #
 ##################################################
-<% if scope['::snmp::user:user_type'] and scope['::snmp::user:user_name'] and scope['::snmp::user:security_level'] -%>
-${user_type} ${user_name} ${security_level}
+<% if scope['::snmp::user::user_type'] and scope['::snmp::user::user_name'] and scope['::snmp::user::security_level'] -%>
+<%= scope['::snmp::user::user_type'] scope['::snmp::user::user_name'] scope['::snmp::user::security_level'] %>
 <% end -%>
