@@ -1,14 +1,13 @@
 # SNMP class to configure and add V3 user for snmpd, snmptrapd utilities
 define snmp::user (
   $daemon_type    = 'snmpd',
-  $user_name      = undef,
+  $user_name      = $title,
   $user_type      = 'rouser',
   $security_level = undef,
   $auth_hash_type = 'SHA',
   $auth_password  = undef,
   $priv_enc_type  = 'AES',
   $priv_password  = undef,
-
   $snmpd_service_name = $::snmp::snmpd_service_name,
 ) {
 
@@ -48,9 +47,8 @@ define snmp::user (
     }
   }
 
-  file { '/etc/snmp/snmpd.conf.d/users.conf':
+  file { "/etc/snmp/snmpd.conf.d/user_${user_name}.conf":
     ensure  => present,
-    path    => '/etc/snmp/snmpd.conf.d/users.conf',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -64,14 +62,7 @@ define snmp::user (
     user    => 'root',
   }
 
-  file { '/etc/snmp/snmpd.conf.d':
-    ensure => 'directory',
-    owner  => root,
-    group  => root,
-    mode   => '0755',
-  }
-
-  file_line { 'usm_snmpd_file':
+  file_line { "usm_${user_name}":
     path    => '/var/lib/net-snmp/snmpd.conf',
     line    => $createuser,
     before  => Exec['start_snmpd'],

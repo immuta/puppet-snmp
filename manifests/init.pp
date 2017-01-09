@@ -1,23 +1,21 @@
 # SNMP Class to install, configure snmpd, snmptrapd, snmp utilities
 class snmp (
+  $snmpd_package_ensure      = $::snmp::params::snmpd_package_ensure,
+  $snmpd_package_name        = $::snmp::params::snmpd_package_name,
 
-  $snmpd_package_ensure             = $::snmp::params::snmpd_package_ensure,
-  $snmpd_package_name               = $::snmp::params::snmpd_package_name,
+  $snmp_package_ensure       = $::snmp::params::snmp_package_ensure,
+  $snmp_package_name         = $::snmp::params::snmp_package_name,
 
-  $snmp_package_ensure              = $::snmp::params::snmp_package_ensure,
-  $snmp_package_name                = $::snmp::params::snmp_package_name,
+  $snmpd_service_ensure      = $::snmp::params::snmpd_service_ensure,
+  $snmpd_service_enable      = $::snmp::params::snmpd_service_enable,
+  $snmpd_service_name        = $::snmp::params::snmpd_service_name,
 
-  $snmpd_service_ensure             = $::snmp::params::snmpd_service_ensure,
-  $snmpd_service_enable             = $::snmp::params::snmpd_service_enable,
-  $snmpd_service_name               = $::snmp::params::snmpd_service_name,
-
-  $snmpd_config_file                = $::snmp::params::snmpd_config_file,
-
-  $snmpd_config_agentaddress        = $::snmp::params::snmpd_config_agentaddress,
-  $snmpd_config_sys_location        = $::snmp::params::snmpd_config_sys_location,
-  $snmpd_config_sys_contact         = $::snmp::params::snmpd_config_sys_contact,
-  $snmpd_config_sys_services        = $::snmp::params::snmpd_config_sys_services,
-  $snmpd_config_sys_name            = $::snmp::params::snmpd_config_sys_name,
+  $snmpd_config_file         = $::snmp::params::snmpd_config_file,
+  $snmpd_config_agentaddress = $::snmp::params::snmpd_config_agentaddress,
+  $snmpd_config_sys_location = $::snmp::params::snmpd_config_sys_location,
+  $snmpd_config_sys_contact  = $::snmp::params::snmpd_config_sys_contact,
+  $snmpd_config_sys_services = $::snmp::params::snmpd_config_sys_services,
+  $snmpd_config_sys_name     = $::snmp::params::snmpd_config_sys_name,
 
 ) inherits ::snmp::params {
 
