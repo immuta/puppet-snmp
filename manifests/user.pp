@@ -59,7 +59,7 @@ define snmp::user (
 
   file { "${user_name}_flag":
     ensure  => file,
-    path    => "/etc/snmp/current_users/${user_name}"
+    path    => "/etc/snmp/current_users/${user_name}",
     mode    => '0700',
     owner   => 'root',
     group   => 'root',
