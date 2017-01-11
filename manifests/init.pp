@@ -16,10 +16,6 @@ class snmp (
   $snmpd_config_sys_contact  = $::snmp::params::snmpd_config_sys_contact,
   $snmpd_config_sys_services = $::snmp::params::snmpd_config_sys_services,
   $snmpd_config_sys_name     = $::snmp::params::snmpd_config_sys_name,
-
-  $oid_auth                  = $::snmp::params::oid_auth,
-  $oid_priv                  = $::snmp::params::oid_priv,
-
 ) inherits ::snmp::params {
 
   anchor { 'snmp::begin': } ->

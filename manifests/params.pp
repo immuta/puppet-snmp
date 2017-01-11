@@ -11,13 +11,9 @@ class snmp::params {
   $snmpd_service_name        = 'snmpd'
 
   $snmpd_config_file         = '/etc/snmp/snmpd.conf'
-
   $snmpd_config_agentaddress = [ 'udp:127.0.0.1:161' ]
   $snmpd_config_sys_location = 'Unknown'
   $snmpd_config_sys_contact  = 'Unknown'
   $snmpd_config_sys_services = 'Unknown'
   $snmpd_config_sys_name     = $::fqdn
-
-  $oid_auth                  = { 'noauth' => '.1.3.6.1.6.3.10.1.1.1', 'MD5' => '.1.3.6.1.6.3.10.1.1.2', 'SHA' => '.1.3.6.1.6.3.10.1.1.3' }
-  $oid_priv                  = { 'nopriv' => '.1.3.6.1.6.3.10.1.2.1', 'DES' => '.1.3.6.1.6.3.10.1.2.2', 'AES' => '.1.3.6.1.6.3.10.1.2.4' }
 }

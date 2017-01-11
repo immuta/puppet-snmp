@@ -8,10 +8,8 @@ define snmp::user (
   $auth_password  = undef,
   $priv_enc_type  = 'AES',
   $priv_password  = undef,
-  $snmpd_service_name = $::snmp::snmpd_service_name,
 
-  $oid_auth           = $::snmp::oid_auth,
-  $oid_priv           = $::snmp::oid_priv,
+  $snmpd_service_name = $::snmp::snmpd_service_name,
 ) {
   validate_string($user_name)
 
