@@ -9,8 +9,10 @@ define snmp::user (
   $priv_enc_type  = 'AES',
   $priv_password  = undef,
   $snmpd_service_name = $::snmp::snmpd_service_name,
-) {
 
+  $oid_auth           = $::snmp::oid_auth,
+  $oid_priv           = $::snmp::oid_priv,
+) {
   validate_string($user_name)
 
   if ! ($daemon_type in ['snmpd', 'snmptrapd']) {

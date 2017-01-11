@@ -17,4 +17,7 @@ class snmp::params {
   $snmpd_config_sys_contact  = 'Unknown'
   $snmpd_config_sys_services = 'Unknown'
   $snmpd_config_sys_name     = $::fqdn
+
+  $oid_auth                  = { md5 => '.1.3.6.1.6.3.10.1.1.2', sha => '.1.3.6.1.6.3.10.1.1.3' }
+  $oid_priv                  = { des => '.1.3.6.1.6.3.10.1.2.2', 3des => '.1.3.6.1.6.3.10.1.2.3', aes => '.1.3.6.1.6.3.10.1.2.4' }
 }
