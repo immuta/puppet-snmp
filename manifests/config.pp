@@ -1,7 +1,7 @@
 # SNMP config class to configure snmpd, snmptrapd, snmp utilities
 class snmp::config {
   file { $::snmp::snmpd_config_file:
-    ensure  => present,
+    ensure  => 'present',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
