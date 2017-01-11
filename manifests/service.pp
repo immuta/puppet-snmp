@@ -11,7 +11,9 @@ class snmp::service {
   }
 
   if ! ($::snmp::snmpd_service_enable in ['true', 'false', 'manual', 'mask']) {
-    fail('snmpd_package_ensure parameter must be either true, false, manual, or mask')
+    if ! ($::snmp::snmpd_service_enable.is_a(Boolean)) {
+      fail('snmpd_package_ensure parameter must be either true, false, manual, or mask')
+    }
   }
 
   ##########################
