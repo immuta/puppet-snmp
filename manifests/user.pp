@@ -15,11 +15,11 @@ define snmp::user (
 ) {
   validate_string($user_name)
 
-  notice( $oid_auth[md5] )
-  notice( $oid_auth[sha] )
-  notice( $oid_priv[des] )
-  notice( $oid_priv[3des] )
-  notice( $oid_priv[aes] )
+  notice( $oid_auth['md5'] )
+  notice( $oid_auth['sha'] )
+  notice( $oid_priv['des'] )
+  notice( $oid_priv['3des'] )
+  notice( $oid_priv['aes'] )
 
   if ! ($daemon_type in ['snmpd', 'snmptrapd']) {
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
