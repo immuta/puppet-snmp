@@ -49,7 +49,7 @@ define snmp::user (
   }
 
   file { "/etc/snmp/snmpd.conf.d/user_${user_name}.conf":
-    ensure  => present,
+    ensure  => 'present',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -58,7 +58,7 @@ define snmp::user (
   }
 
   file { "${user_name}_flag":
-    ensure  => file,
+    ensure  => 'file',
     path    => "/etc/snmp/current_users/${user_name}",
     mode    => '0700',
     owner   => 'root',
