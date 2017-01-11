@@ -27,8 +27,6 @@ class snmp (
   validate_string($snmpd_package_name)
   validate_string($snmp_package_name)
   validate_string($snmpd_service_name)
-  validate_string($snmpd_service_enable)
   validate_string($snmpd_config_file)
   validate_array($snmpd_config_agentaddress)
-
 }
