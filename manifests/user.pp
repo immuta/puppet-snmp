@@ -15,11 +15,8 @@ define snmp::user (
 ) {
   validate_string($user_name)
 
-  notice( "md5: ${oid_auth['md5']}" )
-  notice( "sha: ${oid_auth['sha']}" )
-  notice( "des: ${oid_priv['des']}" )
-  notice( "3des ${oid_priv['3des']}" )
-  notice( "aes: ${oid_priv['aes']}" )
+  notice( "${auth_hash_type}: ${oid_auth['${auth_hash_type}']}" )
+  notice( "${priv_enc_type}: ${oid_priv['${priv_enc_type}']}" )
 
   if ! ($daemon_type in ['snmpd', 'snmptrapd']) {
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
