@@ -7,7 +7,7 @@ class snmp::params {
   $snmp_package_name         = 'net-snmp-utils'
 
   $snmpd_service_ensure      = 'running'
-  $snmpd_service_enable      = 'true'
+  $snmpd_service_enable      = true
   $snmpd_service_name        = 'snmpd'
 
   $snmpd_config_file         = '/etc/snmp/snmpd.conf'

@@ -12,7 +12,7 @@ define snmp::user (
 ) {
   Class['snmp::config'] -> Snmp::User[$title]
 
- validate_string($user_name)
+  validate_string($user_name)
 
   if ! ($daemon_type in ['snmpd', 'snmptrapd']) {
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
