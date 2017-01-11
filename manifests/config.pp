@@ -11,8 +11,15 @@ class snmp::config {
 
   file { '/etc/snmp/snmpd.conf.d':
     ensure => 'directory',
-    owner  => root,
-    group  => root,
+    owner  => 'root',
+    group  => 'root',
     mode   => '0755',
+  }
+
+  file { '/etc/snmp/current_users':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
   }
 }

@@ -1,17 +1,18 @@
 # SNMP class to configure and add V3 user for snmpd, snmptrapd utilities
 define snmp::user (
-  $daemon_type    = 'snmpd',
-  $user_name      = $title,
-  $user_type      = 'rouser',
-  $security_level = undef,
-  $auth_hash_type = 'SHA',
-  $auth_password  = undef,
-  $priv_enc_type  = 'AES',
-  $priv_password  = undef,
-
+  $daemon_type        = 'snmpd',
+  $user_name          = $title,
+  $user_type          = 'rouser',
+  $security_level     = undef,
+  $auth_hash_type     = 'SHA',
+  $auth_password      = undef,
+  $priv_enc_type      = 'AES',
+  $priv_password      = undef,
   $snmpd_service_name = $::snmp::snmpd_service_name,
 ) {
-  validate_string($user_name)
+  Class['snmp::config'] -> Snmp::User[$title]
+
+ validate_string($user_name)
 
   if ! ($daemon_type in ['snmpd', 'snmptrapd']) {
     fail('daemon_type parameter must be either snmpd, or snmptrapd')
@@ -52,27 +53,24 @@ define snmp::user (
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    content => template('snmp/RedHat/snmpd/snmpd.conf.d/users.conf.erb'),
-    before  => Exec['stop_snmpd'],
+    content => template("snmp/${::osfamily}/snmpd/snmpd.conf.d/users.conf.erb"),
+    before  => File["${user_name}_flag"],
   }
 
-  exec { 'stop_snmpd':
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    command => "service ${snmpd_service_name} stop; sleep 5",
-    user    => 'root',
+  file { "${user_name}_flag":
+    ensure  => file,
+    path    => "/etc/snmp/current_users/${user_name}"
+    mode    => '0700',
+    owner   => 'root',
+    group   => 'root',
+    content => fqdn_rand_string(64, '', "${auth_password}${priv_password}"),
+    notify  => Exec["add_user_${user_name}"],
   }
 
-  file_line { "usm_${user_name}":
-    path    => '/var/lib/net-snmp/snmpd.conf',
-    line    => $createuser,
-    before  => Exec['start_snmpd'],
-    require => Exec['stop_snmpd'],
-  }
-
-  exec { 'start_snmpd':
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    command => "service ${snmpd_service_name} start",
-    user    => 'root',
-    require => Exec['stop_snmpd'],
+  exec { "add_user_${user_name}":
+    path        => '/bin:/sbin:/usr/bin:/usr/sbin',
+    command     => "service ${snmpd_service_name} stop ; sleep 5 ; echo \"${createuser}\" >> /var/lib/net-snmp/snmpd.conf ; service ${snmpd_service_name} start",
+    user        => 'root',
+    refreshonly => true,
   }
 }
