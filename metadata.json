@@ -2,7 +2,8 @@
   "name": "snmp",
   "version": "0.1.0",
   "author": "rfelsburg",
-  "description": "SNMP, Simple Network Management Protocol configuration and installation. SNMPv1, SNMPv2, and SNMPv3 are supported via UDP, or TCP, across IPv4 and IPv6.",
+  "license": "GPL-2.0",
+  "summary": "SNMP, Simple Network Management Protocol configuration and installation. SNMPv1, SNMPv2, and SNMPv3 are supported via UDP, or TCP, across IPv4 and IPv6.",
   "source": "https://github.com/immuta/puppet-snmp.git",
   "tags": [ "net-snmp", "snmpd", "monitor" ],
   "dependencies": [
